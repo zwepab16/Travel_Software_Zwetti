@@ -30,6 +30,10 @@ public class RestClient {
     private static final String URI = "http://api.openweathermap.org/data/2.5/";
     private static final String PATH = "weather";
     private static final String APPID = "d8f4bf1bc533c53b25d7ddc6f292f398";
+    private static final String imageUrl = "https://openweathermap.org/img/wn/";
+    private static final String imageEnd="@2x.png";
+   
+    
 
     public OpenWeatherResponse searchDestinationByName(String name) {
         Client c = ClientBuilder.newClient();
@@ -54,14 +58,15 @@ public class RestClient {
 
         return owo;
     }
-    public ImageIcon getImage(){
-        
+    public ImageIcon getImage(String id){
+          ImageIcon icon=new ImageIcon();
         try {
-            ImageIcon icon=new ImageIcon(ImageIO.read(new URL("sda")));
+            URL url=new URL(imageUrl+id+imageEnd);
+             icon=new ImageIcon(ImageIO.read(url));
         } catch (IOException ex) {
             Logger.getLogger(RestClient.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
+        return icon;
     }
             
     

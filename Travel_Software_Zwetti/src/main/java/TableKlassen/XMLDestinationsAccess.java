@@ -1,3 +1,4 @@
+package TableKlassen;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -57,28 +58,21 @@ public class XMLDestinationsAccess {
         return redestinations;
     }
 
-    public void addISBN() {
+    public void addDestination(String name) {
+        
         Element root = doc.getRootElement();
-        List<Element> books = root.getChildren("book");
-        Element elemBook = null;
-        for (Element book : books) {
-            if (book.getChild("title").getText().equals("Harry Potter")) {
-                elemBook = book;
-            }
-        }
-
-        int i = root.indexOf(elemBook);
-        root.removeContent(elemBook);
-        elemBook.addContent(new Element("isbn").setText("" + "123456789"));
-        root.setContent(i, elemBook);
+        
+        Element newElement = new Element("destination");
+        newElement.addContent(new Element("name").setText(name));
+        root.addContent(newElement);
 
         XMLOutputter xmlOutputter = new XMLOutputter(Format.getPrettyFormat());
         try {
-            xmlOutputter.output(doc, new FileOutputStream(new File("xml/bookstore.xml")));
+            xmlOutputter.output(doc, new FileOutputStream(new File("xml/destinations.xml")));
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(XMLAccess.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(XMLDestinationsAccess.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(XMLAccess.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(XMLDestinationsAccess.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -86,6 +80,7 @@ public class XMLDestinationsAccess {
     public static void main(String[] args) {
         try {
 
+            XMLDestinationsAccess.getInstance().addDestination("TEST");
             System.out.println(XMLDestinationsAccess.getInstance().numDestinations());
             for (String s : XMLDestinationsAccess.getInstance().getAllDestinations()) {
                 System.out.println(s);

@@ -1,17 +1,15 @@
 package TableKlassen;
 
-
+import restMain.RestClient;
 import com.mycompany.travel_software_zwetti.weatherClasses.OpenWeatherResponse;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
-import restMain.RestClient;
 
+public class WeatherModel extends AbstractTableModel {
 
-public class WeatherModel extends AbstractTableModel{
-    
-    private RestClient restClient=new RestClient();
+    private RestClient restClient = new RestClient();
     private ArrayList<OpenWeatherResponse> destinations = new ArrayList<OpenWeatherResponse>();
-    private String[] names = {"Icon", "Name", "Temperatur","Höchste Temperatur","Niedrigste Temperatur", "Luftfeuchtigkeit"};
+    private String[] names = {"Icon", "Name", "Temperatur", "Höchste Temperatur", "Niedrigste Temperatur", "Luftfeuchtigkeit"};
 
     @Override
     public int getRowCount() {
@@ -20,26 +18,32 @@ public class WeatherModel extends AbstractTableModel{
 
     @Override
     public int getColumnCount() {
-       return 6;
+        return 6;
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-         return destinations.get(rowIndex);
+        return destinations.get(rowIndex);
     }
-    
+
     public void addByName(String d) throws Exception {
-        
-        destinations.add(restClient.searchDestinationByName(d));
+
+        OpenWeatherResponse r = restClient.searchDestinationByName(d);
+        destinations.add(r);
+        XMLDestinationsAccess.getInstance().addDestination(r.getName());
         fireTableDataChanged();
-     
+
     }
+
     public void addByPLZ(String d) throws Exception {
-        
-        destinations.add(restClient.searchDestinationByPLZ(d));
+        OpenWeatherResponse r = restClient.searchDestinationByPLZ(d);
+        destinations.add(r);
+        XMLDestinationsAccess.getInstance().addDestination(r.getName());
         fireTableDataChanged();
+
     }
-    public void deleteDestination(int row){
+
+    public void deleteDestination(int row) {
         destinations.remove(row);
         fireTableRowsDeleted(row, row);
     }
@@ -47,7 +51,14 @@ public class WeatherModel extends AbstractTableModel{
     public String getColumnName(int i) {
         return names[i];
     }
-    
-  
-    
+
+    public void loadDestinations() throws Exception {
+
+        for (String destination : XMLDestinationsAccess.getInstance().getAllDestinations()) {
+            OpenWeatherResponse r = restClient.searchDestinationByName(destination);
+            destinations.add(r);
+            fireTableDataChanged();
+        }
+    }
+
 }

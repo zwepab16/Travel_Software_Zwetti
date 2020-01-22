@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-
 <travelSoftware>
-    <destination>
-        <name>Wien</name>
-    </destination>
-    <destination>
-        <name>Tirol</name>
-    </destination>
+  <destination>
+    <name>Wien</name>
+  </destination>
+  <destination>
+    <name>Tirol</name>
+  </destination>
+  <destination>
+    <name>Buchenberg</name>
+  </destination>
 </travelSoftware>
