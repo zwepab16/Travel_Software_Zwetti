@@ -1,3 +1,5 @@
+package TableKlassen;
+
 
 import com.mycompany.travel_software_zwetti.weatherClasses.OpenWeatherResponse;
 import java.awt.Component;
@@ -19,7 +21,7 @@ public class WeatherRenderer implements TableCellRenderer{
             case 2: l.setText(r.getMain().getTemp()+" °C");break;
              case 3: l.setText(r.getMain().getTemp_max()+" °C");break;
               case 4: l.setText(r.getMain().getTemp_min()+" °C");break;
-               case 5: l.setText(r.getMain().getHumidity()+" °C");break;
+               case 5: l.setText(r.getMain().getHumidity()+" %");break;
         }
         l.setFont(new Font("Tahoma", 0, 18));
         l.setOpaque(true);

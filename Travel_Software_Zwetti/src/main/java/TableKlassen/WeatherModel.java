@@ -1,3 +1,5 @@
+package TableKlassen;
+
 
 import com.mycompany.travel_software_zwetti.weatherClasses.OpenWeatherResponse;
 import java.util.ArrayList;
@@ -26,9 +28,15 @@ public class WeatherModel extends AbstractTableModel{
          return destinations.get(rowIndex);
     }
     
-    public void add(String d) throws Exception {
+    public void addByName(String d) throws Exception {
         
         destinations.add(restClient.searchDestinationByName(d));
+        fireTableDataChanged();
+     
+    }
+    public void addByPLZ(String d) throws Exception {
+        
+        destinations.add(restClient.searchDestinationByPLZ(d));
         fireTableDataChanged();
      //   save();
     }

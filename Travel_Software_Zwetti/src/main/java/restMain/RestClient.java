@@ -36,21 +36,34 @@ public class RestClient {
 
     
     public OpenWeatherResponse searchDestinationByName(String name){
-        Client c=ClientBuilder.newClient();
+       Client c=ClientBuilder.newClient();
        Response r= c.target(URI).path(PATH).queryParam("appid", APPID).queryParam("q", name).request(MediaType.APPLICATION_JSON).get();
        String jString=r.readEntity(String.class);
        
         OpenWeatherResponse owo=new Gson().fromJson(jString, OpenWeatherResponse.class);
-        try {
-            ImageIcon icon=new ImageIcon(ImageIO.read(new URL("sda")));
-        } catch (IOException ex) {
-            Logger.getLogger(RestClient.class.getName()).log(Level.SEVERE, null, ex);
-        }
-       
-       System.out.println(r.toString());
+        
        System.out.println(jString);
-        System.out.println(owo.getName());
+
         
         return owo;
     }
+    public OpenWeatherResponse searchDestinationByPLZ(String plz){
+        System.out.println(plz+"hir");
+       Client c=ClientBuilder.newClient();
+       Response r= c.target(URI).path(PATH).queryParam("appid", APPID).queryParam("zip", plz).request(MediaType.APPLICATION_JSON).get();
+       String jString=r.readEntity(String.class);
+       
+        OpenWeatherResponse owo=new Gson().fromJson(jString, OpenWeatherResponse.class);
+        
+       System.out.println(jString);
+
+        
+        return owo;
+    }
+    
 }
+//try {
+//            ImageIcon icon=new ImageIcon(ImageIO.read(new URL("sda")));
+//        } catch (IOException ex) {
+//            Logger.getLogger(RestClient.class.getName()).log(Level.SEVERE, null, ex);
+//        }
