@@ -38,7 +38,10 @@ public class WeatherModel extends AbstractTableModel{
         
         destinations.add(restClient.searchDestinationByPLZ(d));
         fireTableDataChanged();
-     //   save();
+    }
+    public void deleteDestination(int row){
+        destinations.remove(row);
+        fireTableRowsDeleted(row, row);
     }
 
     public String getColumnName(int i) {

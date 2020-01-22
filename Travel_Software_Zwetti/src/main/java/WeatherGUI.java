@@ -33,11 +33,21 @@ public class WeatherGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        miDeleteDestination = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         destinationsTable = new javax.swing.JTable();
         AddDestination1 = new javax.swing.JButton();
+
+        miDeleteDestination.setText("RemoveDestination");
+        miDeleteDestination.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miDeleteDestinationActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(miDeleteDestination);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -69,6 +79,7 @@ public class WeatherGUI extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        destinationsTable.setComponentPopupMenu(jPopupMenu1);
         jScrollPane1.setViewportView(destinationsTable);
 
         AddDestination1.setText("Add Destination");
@@ -142,6 +153,15 @@ public class WeatherGUI extends javax.swing.JFrame {
 
     }//GEN-LAST:event_AddDestination1ActionPerformed
 
+    private void miDeleteDestinationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miDeleteDestinationActionPerformed
+       //Delete
+       
+       int row=this.destinationsTable.getSelectedRow();
+       model.deleteDestination(row);
+               
+       
+    }//GEN-LAST:event_miDeleteDestinationActionPerformed
+
 public static void main(String args[]) {
       
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -157,6 +177,8 @@ public static void main(String args[]) {
     private javax.swing.JTable destinationsTable;
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JMenuItem miDeleteDestination;
     // End of variables declaration//GEN-END:variables
 }

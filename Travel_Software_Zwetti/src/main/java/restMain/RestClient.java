@@ -1,6 +1,5 @@
 package restMain;
 
-
 import com.google.gson.Gson;
 import com.mycompany.travel_software_zwetti.weatherClasses.OpenWeatherResponse;
 
@@ -21,49 +20,54 @@ import javax.ws.rs.core.Response;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Zwetti Patrick
  */
 public class RestClient {
+
     private Client c;
-    private static final String URI="http://api.openweathermap.org/data/2.5/";
-    private static final String PATH="weather";
-    private static final String APPID="d8f4bf1bc533c53b25d7ddc6f292f398";
+    private static final String URI = "http://api.openweathermap.org/data/2.5/";
+    private static final String PATH = "weather";
+    private static final String APPID = "d8f4bf1bc533c53b25d7ddc6f292f398";
 
+    public OpenWeatherResponse searchDestinationByName(String name) {
+        Client c = ClientBuilder.newClient();
+        Response r = c.target(URI).path(PATH).queryParam("appid", APPID).queryParam("q", name).queryParam("lang", "de").request(MediaType.APPLICATION_JSON).get();
+        String jString = r.readEntity(String.class);
 
+        OpenWeatherResponse owo = new Gson().fromJson(jString, OpenWeatherResponse.class);
 
-    
-    public OpenWeatherResponse searchDestinationByName(String name){
-       Client c=ClientBuilder.newClient();
-       Response r= c.target(URI).path(PATH).queryParam("appid", APPID).queryParam("q", name).request(MediaType.APPLICATION_JSON).get();
-       String jString=r.readEntity(String.class);
-       
-        OpenWeatherResponse owo=new Gson().fromJson(jString, OpenWeatherResponse.class);
-        
-       System.out.println(jString);
+        System.out.println(jString);
 
-        
         return owo;
     }
-    public OpenWeatherResponse searchDestinationByPLZ(String plz){
-        System.out.println(plz+"hir");
-       Client c=ClientBuilder.newClient();
-       Response r= c.target(URI).path(PATH).queryParam("appid", APPID).queryParam("zip", plz).request(MediaType.APPLICATION_JSON).get();
-       String jString=r.readEntity(String.class);
-       
-        OpenWeatherResponse owo=new Gson().fromJson(jString, OpenWeatherResponse.class);
-        
-       System.out.println(jString);
 
-        
+    public OpenWeatherResponse searchDestinationByPLZ(String plz) { 
+        Client c = ClientBuilder.newClient();
+        Response r = c.target(URI).path(PATH).queryParam("appid", APPID).queryParam("zip", plz).queryParam("lang", "de").request(MediaType.APPLICATION_JSON).get();
+        String jString = r.readEntity(String.class);
+
+        OpenWeatherResponse owo = new Gson().fromJson(jString, OpenWeatherResponse.class);
+
+        System.out.println(jString);
+
         return owo;
     }
+    public ImageIcon getImage(){
+        
+        try {
+            ImageIcon icon=new ImageIcon(ImageIO.read(new URL("sda")));
+        } catch (IOException ex) {
+            Logger.getLogger(RestClient.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+            
     
+    
+    
+    
+
 }
-//try {
-//            ImageIcon icon=new ImageIcon(ImageIO.read(new URL("sda")));
-//        } catch (IOException ex) {
-//            Logger.getLogger(RestClient.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+
