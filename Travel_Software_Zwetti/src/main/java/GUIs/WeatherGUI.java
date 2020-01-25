@@ -1,3 +1,4 @@
+package GUIs;
 
 import TableKlassen.WeatherRenderer;
 import TableKlassen.WeatherModel;
@@ -141,11 +142,8 @@ public class WeatherGUI extends javax.swing.JFrame {
         d.setVisible(true);
         if (d.isOk()) {
             try {
-                if (d.isSelection()) {
-                    model.addByPLZ(d.getPlzString());
-                } else {
-                    model.addByName(d.getPlzString());
-                }
+                model.add(d.getSearchString());
+
             } catch (Exception ex) {
                 Logger.getLogger(WeatherGUI.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -185,7 +183,7 @@ public class WeatherGUI extends javax.swing.JFrame {
     private void fillDateComboBox() {
         for (int i = 0; i < 5; i++) {
             cbDates.addItem(LocalDate.now().plusDays(i).toString());
-          //  System.out.println(LocalDate.now().plusDays(i).toString());
+            //  System.out.println(LocalDate.now().plusDays(i).toString());
         }
     }
 
