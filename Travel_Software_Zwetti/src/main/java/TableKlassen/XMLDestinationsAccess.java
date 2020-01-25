@@ -59,9 +59,9 @@ public class XMLDestinationsAccess {
     }
 
     public void addDestination(String name) {
-        
+
         Element root = doc.getRootElement();
-        
+
         Element newElement = new Element("destination");
         newElement.addContent(new Element("name").setText(name));
         root.addContent(newElement);

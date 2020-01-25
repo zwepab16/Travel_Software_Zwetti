@@ -2,11 +2,13 @@ package TableKlassen;
 
 import restMain.RestClient;
 import com.mycompany.travel_software_zwetti.weatherClasses.OpenWeatherResponse;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.table.TableCellRenderer;
 
 public class WeatherRenderer implements TableCellRenderer {
@@ -18,25 +20,43 @@ public class WeatherRenderer implements TableCellRenderer {
 
         switch (column) {
             case 0:
-                l.setText(r.getName());
+                ImageIcon icon = new RestClient().getImage(r.getWeather().get(0).getIcon());
+                l.setIcon(icon);
+                l.setHorizontalAlignment(SwingConstants.CENTER);
                 break;
             case 1:
-                l.setIcon(new RestClient().getImage(r.getWeather().get(0).getIcon()));
+                l.setText(r.getName());
+                break;
             case 2:
-                l.setText(r.getMain().getTemp() + " °C");
+                l.setText(String.format("%.2f °C", r.getMain().getTemp() - 273.15));
+                 if( r.getMain().getTemp() - 273.15<0){
+                    l.setBackground(Color.blue);
+                }else if( r.getMain().getTemp() - 273.15>=28){
+                       l.setBackground(Color.red);
+                }
+
                 break;
             case 3:
-                l.setText(r.getMain().getTemp_max() + " °C");
+                l.setText(String.format("%.2f °C", r.getMain().getTemp_max() - 273.15));
+
                 break;
             case 4:
-                l.setText(r.getMain().getTemp_min() + " °C");
+
+                l.setText(String.format("%.2f °C", r.getMain().getTemp_min() - 273.15));
+               
+                
                 break;
             case 5:
                 l.setText(r.getMain().getHumidity() + " %");
                 break;
         }
-        l.setFont(new Font("Tahoma", 0, 18));
+
+        // l.setFont(new Font("Tahoma", 0, 18));
         l.setOpaque(true);
+        
+        if(isSelected){
+           l.setBackground(Color.yellow);
+        }
 
         return l;
     }

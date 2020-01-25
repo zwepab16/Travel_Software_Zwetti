@@ -2,6 +2,7 @@ package restMain;
 
 import com.google.gson.Gson;
 import com.mycompany.travel_software_zwetti.weatherClasses.OpenWeatherResponse;
+import com.mycompany.travel_software_zwetti.weatherClasses.forecastClasses.ForecastObject;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -28,35 +29,46 @@ public class RestClient {
 
     private Client c;
     private static final String URI = "http://api.openweathermap.org/data/2.5/";
-    private static final String PATH = "weather";
+    private static final String PATH = "forecast";
     private static final String APPID = "d8f4bf1bc533c53b25d7ddc6f292f398";
     private static final String imageUrl = "https://openweathermap.org/img/wn/";
     private static final String imageEnd="@2x.png";
    
-    
+    public static void main(String[] args) {
+        RestClient r=new RestClient();
+       r.searchDestinationByPLZ("8553,at");
+        
+        
+    }
 
-    public OpenWeatherResponse searchDestinationByName(String name) {
+    public ForecastObject searchDestinationByName(String name) {
         Client c = ClientBuilder.newClient();
         Response r = c.target(URI).path(PATH).queryParam("appid", APPID).queryParam("q", name).queryParam("lang", "de").request(MediaType.APPLICATION_JSON).get();
         String jString = r.readEntity(String.class);
 
-        OpenWeatherResponse owo = new Gson().fromJson(jString, OpenWeatherResponse.class);
+        ForecastObject owo = new Gson().fromJson(jString, ForecastObject.class);
 
         System.out.println(jString);
-
+        for (OpenWeatherResponse openWeatherResponse :  owo.getList()) {
+             openWeatherResponse.setName(owo.getCity().getName());
+        }
         return owo;
     }
 
-    public OpenWeatherResponse searchDestinationByPLZ(String plz) { 
+    public ForecastObject searchDestinationByPLZ(String plz) { 
         Client c = ClientBuilder.newClient();
         Response r = c.target(URI).path(PATH).queryParam("appid", APPID).queryParam("zip", plz).queryParam("lang", "de").request(MediaType.APPLICATION_JSON).get();
         String jString = r.readEntity(String.class);
 
-        OpenWeatherResponse owo = new Gson().fromJson(jString, OpenWeatherResponse.class);
-
+       // OpenWeatherResponse owo = new Gson().fromJson(jString, OpenWeatherResponse.class);
+        ForecastObject o=new Gson().fromJson(jString, ForecastObject.class);
         System.out.println(jString);
+        for (OpenWeatherResponse openWeatherResponse :  o.getList()) {
+             openWeatherResponse.setName(o.getCity().getName());
+        }
+       
 
-        return owo;
+        return o;
     }
     public ImageIcon getImage(String id){
           ImageIcon icon=new ImageIcon();

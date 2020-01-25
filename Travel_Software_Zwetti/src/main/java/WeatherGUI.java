@@ -2,6 +2,8 @@
 import TableKlassen.WeatherRenderer;
 import TableKlassen.WeatherModel;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -15,10 +17,10 @@ public class WeatherGUI extends javax.swing.JFrame {
         fillDateComboBox();
         destinationsTable.setModel(model);
         destinationsTable.setDefaultRenderer(Object.class, new WeatherRenderer());
-        destinationsTable.setRowHeight( 40);
+        destinationsTable.setRowHeight(40);
 
         try {
-            model.loadDestinations();
+            model.addByDate(cbDates.getSelectedItem().toString());
         } catch (Exception ex) {
             Logger.getLogger(WeatherGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -162,7 +164,12 @@ public class WeatherGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_miDeleteDestinationActionPerformed
 
     private void cbDatesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbDatesItemStateChanged
-        
+
+        try {
+            model.addByDate(cbDates.getSelectedItem().toString());
+        } catch (Exception ex) {
+            Logger.getLogger(WeatherGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_cbDatesItemStateChanged
 
     public static void main(String args[]) {
@@ -174,9 +181,11 @@ public class WeatherGUI extends javax.swing.JFrame {
         });
 
     }
-    private void fillDateComboBox(){
+
+    private void fillDateComboBox() {
         for (int i = 0; i < 5; i++) {
             cbDates.addItem(LocalDate.now().plusDays(i).toString());
+          //  System.out.println(LocalDate.now().plusDays(i).toString());
         }
     }
 
