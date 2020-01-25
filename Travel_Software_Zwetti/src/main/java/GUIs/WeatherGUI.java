@@ -2,12 +2,11 @@ package GUIs;
 
 import TableKlassen.WeatherRenderer;
 import TableKlassen.WeatherModel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ImageIcon;
 
 public class WeatherGUI extends javax.swing.JFrame {
 
@@ -16,12 +15,10 @@ public class WeatherGUI extends javax.swing.JFrame {
     public WeatherGUI() {
         initComponents();
         fillDateComboBox();
-        destinationsTable.setModel(model);
-        destinationsTable.setDefaultRenderer(Object.class, new WeatherRenderer());
-        destinationsTable.setRowHeight(40);
+        editTable();
 
         try {
-            model.addByDate(cbDates.getSelectedItem().toString());
+            model.loadDestinations(cbDates.getSelectedItem().toString());
         } catch (Exception ex) {
             Logger.getLogger(WeatherGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -69,6 +66,11 @@ public class WeatherGUI extends javax.swing.JFrame {
             }
         ));
         destinationsTable.setComponentPopupMenu(jPopupMenu1);
+        destinationsTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                destinationsTableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(destinationsTable);
 
         AddDestination1.setText("Add Destination");
@@ -164,11 +166,15 @@ public class WeatherGUI extends javax.swing.JFrame {
     private void cbDatesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbDatesItemStateChanged
 
         try {
-            model.addByDate(cbDates.getSelectedItem().toString());
+            model.loadDestinations(cbDates.getSelectedItem().toString());
         } catch (Exception ex) {
             Logger.getLogger(WeatherGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_cbDatesItemStateChanged
+
+    private void destinationsTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_destinationsTableMouseClicked
+        //löschen
+    }//GEN-LAST:event_destinationsTableMouseClicked
 
     public static void main(String args[]) {
 
@@ -185,6 +191,21 @@ public class WeatherGUI extends javax.swing.JFrame {
             cbDates.addItem(LocalDate.now().plusDays(i).toString());
             //  System.out.println(LocalDate.now().plusDays(i).toString());
         }
+    }
+
+    private void editTable() {
+        destinationsTable.setModel(model);
+        destinationsTable.setDefaultRenderer(Object.class, new WeatherRenderer());
+        destinationsTable.setRowHeight(40);
+        destinationsTable.getTableHeader().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                destinationsTable.getTableHeader().getComponentAt(e.getPoint());
+                System.out.println(destinationsTable.getTableHeader().getComponentAt(e.getPoint()).toString());
+                model.sortByTemperature();
+            }
+
+        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

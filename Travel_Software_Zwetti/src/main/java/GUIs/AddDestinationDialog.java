@@ -158,12 +158,9 @@ public class AddDestinationDialog extends javax.swing.JDialog {
 
     private void btAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAddActionPerformed
         if (selection) {
-
             String seletedItem = this.cbLand.getSelectedItem().toString();
             searchString = new SearchString(tfPlz.getText(), seletedItem.substring(seletedItem.indexOf(":") + 2), "", SEARCHTYP.ZIP);
-
         } else {
-
             searchString = new SearchString("", "", tfPlz.getText(), SEARCHTYP.NAME);
         }
 

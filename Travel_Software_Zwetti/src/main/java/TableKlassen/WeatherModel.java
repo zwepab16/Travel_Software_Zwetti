@@ -14,7 +14,7 @@ public class WeatherModel extends AbstractTableModel {
 
     private RestClient restClient = new RestClient();
     private ArrayList<OpenWeatherResponse> destinations = new ArrayList<OpenWeatherResponse>();
-    private String[] names = {"Icon", "Name", "Temperatur", "Höchste Temperatur", "Niedrigste Temperatur", "Luftfeuchtigkeit"};
+    private String[] names = {"Icon", "Name ⮟", "Temperatur ⮟", "Höchste Temperatur", "Niedrigste Temperatur", "Luftfeuchtigkeit"};
     private final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     @Override
@@ -38,7 +38,6 @@ public class WeatherModel extends AbstractTableModel {
         destinations.add(r.getList().get(0));
         XMLDestinationsAccess.getInstance().addDestination(r.getCity().getName());
         fireTableDataChanged();
-
     }
 
     public void deleteDestination(int row) {
@@ -50,18 +49,8 @@ public class WeatherModel extends AbstractTableModel {
         return names[i];
     }
 
-//    public void loadDestinations() throws Exception {
-//        
-//        for (String destination : XMLDestinationsAccess.getInstance().getAllDestinations()) {
-//            ForecastObject r = restClient.searchDestinationByName(destination);
-//            OpenWeatherResponse owr=r.getList().get(0);
-//            owr.setName(r.getCity().getName());
-//            destinations.add(owr);
-//            
-//            fireTableDataChanged();
-//        }
-//    }
-    public void addByDate(String inputDateString) throws Exception {
+
+    public void loadDestinations(String inputDateString) throws Exception {
 
         destinations.clear();
         System.out.println("Selected: " + inputDateString);
@@ -73,7 +62,7 @@ public class WeatherModel extends AbstractTableModel {
             for (OpenWeatherResponse openWeatherResponse : r.getList()) {
                 System.out.println("Objekt: " + openWeatherResponse.getDt_txt());
                 LocalDateTime date = LocalDateTime.parse(openWeatherResponse.getDt_txt(), dtf);
-                if (date.getDayOfYear() == inputDate.getDayOfYear() && date.getHour() == 12) {
+                if (date.getDayOfYear() == inputDate.getDayOfYear() && date.getHour() == 21) {
                     //       openWeatherResponse.setName(r.getCity().getName());
                     destinations.add(openWeatherResponse);
                 }
@@ -82,6 +71,10 @@ public class WeatherModel extends AbstractTableModel {
             fireTableDataChanged();
         }
 
+    }
+    public void sortByTemperature(){
+        destinations.sort(new SortClasses.SortByTemperature());
+        fireTableDataChanged();
     }
 
 }
