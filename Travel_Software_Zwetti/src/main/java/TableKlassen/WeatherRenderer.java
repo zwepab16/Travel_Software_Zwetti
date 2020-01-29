@@ -30,19 +30,19 @@ public class WeatherRenderer implements TableCellRenderer {
             case 2:
                 l.setText(String.format("%.2f °C", r.getMain().getTemp() - 273.15));
                 if (r.getMain().getTemp() - 273.15 < 0) {
-                    l.setBackground(new Color(102,178,255));
+                    l.setBackground(new Color(102, 178, 255));
                 } else if (r.getMain().getTemp() - 273.15 >= 28) {
                     l.setBackground(Color.red);
                 }
 
                 break;
             case 3:
-                l.setText(String.format("%.2f °C", r.getMain().getTemp_max() - 273.15));
+                l.setText(String.format("%.2f °C", r.getMain().getTemp_min()- 273.15));
 
                 break;
             case 4:
 
-                l.setText(String.format("%.2f °C", r.getMain().getTemp_min() - 273.15));
+                l.setText(String.format("%d mbar", r.getMain().getPressure()));
 
                 break;
             case 5:

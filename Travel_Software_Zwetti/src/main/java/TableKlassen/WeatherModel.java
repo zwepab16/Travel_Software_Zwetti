@@ -14,7 +14,7 @@ public class WeatherModel extends AbstractTableModel {
 
     private RestClient restClient = new RestClient();
     private ArrayList<OpenWeatherResponse> destinations = new ArrayList<OpenWeatherResponse>();
-    private String[] names = {"Icon", "Name ⮟", "Temperatur ⮟", "Höchste Temperatur", "Niedrigste Temperatur", "Luftfeuchtigkeit"};
+    private String[] names = {"Icon", "Name ⮟", "Temperatur ⮟", "Niedrigste Temperatur", "Luftdruck", "Luftfeuchtigkeit"};
     private final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     @Override
@@ -61,9 +61,9 @@ public class WeatherModel extends AbstractTableModel {
             ForecastObject r = restClient.searchDestination(new SearchString("", "", destination, SEARCHTYP.NAME));
 
             for (OpenWeatherResponse openWeatherResponse : r.getList()) {
-                System.out.println("Objekt: " + openWeatherResponse.getDt_txt());
+              //  System.out.println("Objekt: " + openWeatherResponse.getDt_txt());
                 LocalDateTime date = LocalDateTime.parse(openWeatherResponse.getDt_txt(), dtf);
-                if (date.getDayOfYear() == inputDate.getDayOfYear() && date.getHour() == 21) {
+                if (date.getDayOfYear() == inputDate.getDayOfYear() && date.getHour() == 15) {
                     //       openWeatherResponse.setName(r.getCity().getName());
                     destinations.add(openWeatherResponse);
                 }
@@ -77,11 +77,11 @@ public class WeatherModel extends AbstractTableModel {
         
         switch(column){
             case 0: break;
-            case 1: break;
+            case 1: destinations.sort(new SortClasses.SortByName());break;
             case 2: destinations.sort(new SortClasses.SortByTemperature()); break;
-            case 3: break;
-            case 4: break;
-            case 5: break;
+            case 3: destinations.sort(new SortClasses.SortByMaxTemperature());break;
+            case 4: destinations.sort(new SortClasses.SortByPressure());break;
+            case 5: destinations.sort(new SortClasses.SortByHuminity());break;
             default:break;
             
         }
