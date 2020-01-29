@@ -76,6 +76,20 @@ public class XMLDestinationsAccess {
         }
 
     }
+    
+    public void deleteDestination(String name){
+        
+       //nix working
+        Element root = doc.getRootElement();
+        List<Element> destinations = root.getChildren("destination");
+        for (Element destination : destinations) {
+            if(destination.getChild("name").getText().equals(name)){
+              destination.removeChild("name");
+            }
+            
+        }
+        
+    }
 
     public static void main(String[] args) {
         try {

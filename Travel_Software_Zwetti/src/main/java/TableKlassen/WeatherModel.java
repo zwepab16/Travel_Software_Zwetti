@@ -40,7 +40,8 @@ public class WeatherModel extends AbstractTableModel {
         fireTableDataChanged();
     }
 
-    public void deleteDestination(int row) {
+    public void deleteDestination(int row) throws Exception {
+        XMLDestinationsAccess.getInstance().deleteDestination(destinations.get(row).getName());
         destinations.remove(row);
         fireTableRowsDeleted(row, row);
     }
@@ -72,8 +73,19 @@ public class WeatherModel extends AbstractTableModel {
         }
 
     }
-    public void sortByTemperature(){
-        destinations.sort(new SortClasses.SortByTemperature());
+    public void sort(int column){
+        
+        switch(column){
+            case 0: break;
+            case 1: break;
+            case 2: destinations.sort(new SortClasses.SortByTemperature()); break;
+            case 3: break;
+            case 4: break;
+            case 5: break;
+            default:break;
+            
+        }
+        
         fireTableDataChanged();
     }
 
