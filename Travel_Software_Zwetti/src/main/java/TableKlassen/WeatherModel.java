@@ -1,5 +1,6 @@
 package TableKlassen;
 
+import XMLAccess.XMLDestinationsAccess;
 import GUIs.SearchString;
 import restMain.RestClient;
 import com.mycompany.travel_software_zwetti.weatherClasses.OpenWeatherResponse;
@@ -14,7 +15,8 @@ public class WeatherModel extends AbstractTableModel {
 
     private RestClient restClient = new RestClient();
     private ArrayList<OpenWeatherResponse> destinations = new ArrayList<OpenWeatherResponse>();
-    private String[] names = {"Icon", "Name ⮟", "Temperatur ⮟", "Niedrigste Temperatur", "Luftdruck", "Luftfeuchtigkeit"};
+    private ArrayList<ForecastObject> fastDestinations = new ArrayList<ForecastObject>();
+    private String[] names = {"  ", "Name ⮟", "Temperatur ⮟", "Niedrigste Temperatur ⮟", "Luftdruck ⮟", "Luftfeuchtigkeit ⮟"};
     private final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     @Override
@@ -50,21 +52,20 @@ public class WeatherModel extends AbstractTableModel {
         return names[i];
     }
 
-
     public void loadDestinations(String inputDateString) throws Exception {
 
         destinations.clear();
-        System.out.println("Selected: " + inputDateString);
+
         LocalDate inputDate = LocalDate.parse(inputDateString, DateTimeFormatter.ISO_LOCAL_DATE);
 
         for (String destination : XMLDestinationsAccess.getInstance().getAllDestinations()) {
             ForecastObject r = restClient.searchDestination(new SearchString("", "", destination, SEARCHTYP.NAME));
 
             for (OpenWeatherResponse openWeatherResponse : r.getList()) {
-              //  System.out.println("Objekt: " + openWeatherResponse.getDt_txt());
+
                 LocalDateTime date = LocalDateTime.parse(openWeatherResponse.getDt_txt(), dtf);
                 if (date.getDayOfYear() == inputDate.getDayOfYear() && date.getHour() == 15) {
-                    //       openWeatherResponse.setName(r.getCity().getName());
+
                     destinations.add(openWeatherResponse);
                 }
 
@@ -73,20 +74,70 @@ public class WeatherModel extends AbstractTableModel {
         }
 
     }
-    public void sort(int column){
-        
-        switch(column){
-            case 0: break;
-            case 1: destinations.sort(new SortClasses.SortByName());break;
-            case 2: destinations.sort(new SortClasses.SortByTemperature()); break;
-            case 3: destinations.sort(new SortClasses.SortByMaxTemperature());break;
-            case 4: destinations.sort(new SortClasses.SortByPressure());break;
-            case 5: destinations.sort(new SortClasses.SortByHuminity());break;
-            default:break;
-            
+
+    public void sort(int column) {
+
+        switch (column) {
+            case 0:
+                break;
+            case 1:
+                destinations.sort(new SortClasses.SortByName());
+                break;
+            case 2:
+                destinations.sort(new SortClasses.SortByTemperature());
+                break;
+            case 3:
+                destinations.sort(new SortClasses.SortByMaxTemperature());
+                break;
+            case 4:
+                destinations.sort(new SortClasses.SortByPressure());
+                break;
+            case 5:
+                destinations.sort(new SortClasses.SortByHuminity());
+                break;
+            default:
+                break;
+
         }
-        
+
         fireTableDataChanged();
+    }
+
+    public void addFastDestination(int row) throws Exception {
+        if (fastDestinations.size() + 1 > 2) {
+            throw new Exception("To many Destinations for fast compare!");
+        } else {
+            OpenWeatherResponse r = (OpenWeatherResponse) getValueAt(row, 0);
+            fastDestinations.add(restClient.searchDestination(new SearchString("", "", r.getName(), SEARCHTYP.NAME)));
+        }
+    }
+
+    public OpenWeatherResponse getFastDestination(String inputDateString, int des) {
+
+       
+        LocalDate inputDate = LocalDate.parse(inputDateString, DateTimeFormatter.ISO_LOCAL_DATE);
+
+       
+           
+                for (OpenWeatherResponse openWeatherResponse : fastDestinations.get(des).getList()) {
+                  
+                    LocalDateTime date = LocalDateTime.parse(openWeatherResponse.getDt_txt(), dtf);
+                    if (date.getDayOfYear() == inputDate.getDayOfYear() && date.getHour() == 15) {
+                  
+                        return openWeatherResponse;
+                    }
+                }
+            
+        
+        return null;
+    }
+
+    public ArrayList<ForecastObject> getFastDestinations() {
+        return fastDestinations;
+    }
+
+    public void deleteFastCompare() {
+        fastDestinations.clear();
     }
 
 }

@@ -38,6 +38,11 @@ public class WeatherRenderer implements TableCellRenderer {
                 break;
             case 3:
                 l.setText(String.format("%.2f °C", r.getMain().getTemp_min()- 273.15));
+                 if (r.getMain().getTemp_min() - 273.15 < 0) {
+                    l.setBackground(new Color(102, 178, 255));
+                } else if (r.getMain().getTemp_min()- 273.15 >= 28) {
+                    l.setBackground(Color.red);
+                }
 
                 break;
             case 4:

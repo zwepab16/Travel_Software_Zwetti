@@ -27,18 +27,28 @@ public class RestClient {
     private static final String imageEnd = "@2x.png";
 
     public static void main(String[] args) {
-        RestClient r = new RestClient();
-        SearchString ss = new SearchString("8553", "AT", "", SEARCHTYP.ZIP);
-        r.searchDestination(ss);
+        try {
+            RestClient r = new RestClient();
+            SearchString ss = new SearchString("8553", "AT", "", SEARCHTYP.ZIP);
+            r.searchDestination(ss);
 
-        ss = new SearchString("", "", "Graz", SEARCHTYP.NAME);
-        r.searchDestination(ss);
+            ss = new SearchString("", "", "Graz", SEARCHTYP.NAME);
+            r.searchDestination(ss);
+        } catch (Exception ex) {
+            Logger.getLogger(RestClient.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
-    public ForecastObject searchDestination(SearchString ss) {
+    public ForecastObject searchDestination(SearchString ss) throws Exception {
         Client c = ClientBuilder.newClient();
         Response r;
+        try {
+            int i = c.target(URI).path(PATH).request(MediaType.APPLICATION_JSON).get().getStatus();
+          
+        } catch (Exception ex) {
+            throw new Exception("Fehler bei der Internetverbindung!");
+        }
 
         if (ss.getSearchType().equals(SEARCHTYP.ZIP)) {
 
@@ -51,7 +61,7 @@ public class RestClient {
 
         String jString = r.readEntity(String.class);
         ForecastObject o = new Gson().fromJson(jString, ForecastObject.class);
-        System.out.println(jString);
+
         for (OpenWeatherResponse openWeatherResponse : o.getList()) {
             openWeatherResponse.setName(o.getCity().getName());
         }

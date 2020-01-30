@@ -1,4 +1,4 @@
-package TableKlassen;
+package XMLAccess;
 
 import java.io.File;
 import java.io.FileNotFoundException;
