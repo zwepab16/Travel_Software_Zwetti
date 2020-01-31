@@ -1,5 +1,5 @@
 
-package TableKlassen;
+package otherClasses;
 
 
 public enum SEARCHTYP {

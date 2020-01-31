@@ -1,7 +1,7 @@
 package restMain;
 
-import GUIs.SearchString;
-import TableKlassen.SEARCHTYP;
+import otherClasses.SEARCHTYP;
+import otherClasses.SearchString;
 import com.google.gson.Gson;
 import com.mycompany.travel_software_zwetti.weatherClasses.OpenWeatherResponse;
 import com.mycompany.travel_software_zwetti.weatherClasses.forecastClasses.ForecastObject;
@@ -26,6 +26,11 @@ public class RestClient {
     private static final String imageUrl = "https://openweathermap.org/img/wn/";
     private static final String imageEnd = "@2x.png";
 
+    /**
+     * 
+     * @param args 
+     * Main to test the RestClient Connection
+     */
     public static void main(String[] args) {
         try {
             RestClient r = new RestClient();
@@ -40,12 +45,18 @@ public class RestClient {
 
     }
 
+    /**
+     * 
+     * @param ss
+     * @return ForecastObject
+     * @throws Exception 
+     */
     public ForecastObject searchDestination(SearchString ss) throws Exception {
         Client c = ClientBuilder.newClient();
         Response r;
         try {
             int i = c.target(URI).path(PATH).request(MediaType.APPLICATION_JSON).get().getStatus();
-          
+
         } catch (Exception ex) {
             throw new Exception("Fehler bei der Internetverbindung!");
         }
@@ -69,6 +80,12 @@ public class RestClient {
         return o;
     }
 
+    /**
+     * 
+     * @param id
+     * @return icon
+     * returns the right icon for the id
+     */
     public ImageIcon getImage(String id) {
         ImageIcon icon = new ImageIcon();
         try {

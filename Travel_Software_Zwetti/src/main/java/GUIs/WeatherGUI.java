@@ -285,21 +285,23 @@ public class WeatherGUI extends javax.swing.JFrame {
 
     private void btStartFastCompareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btStartFastCompareActionPerformed
 
-        if (!lbDes2.getText().equals("....")) {
+        if (!lbDes2.getText().equals("....")&&!lbDes1.getText().equals("....")) {
 
             FastCompareDialog d = new FastCompareDialog(this, true, model);
             d.setVisible(true);
-        }else{
-         JOptionPane.showMessageDialog(null, "Wähle zuerst 2 Zielorte aus!");
+        } else {
+            JOptionPane.showMessageDialog(null, "Wähle zuerst 2 Zielorte aus!");
         }
 
     }//GEN-LAST:event_btStartFastCompareActionPerformed
 
     private void btAddToFastCompareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAddToFastCompareActionPerformed
         try {
-           
+
             int row = destinationsTable.getSelectedRow();
-            if(row==-1)throw new Exception("Makiere zuerst einen Zielort!");
+            if (row == -1) {
+                throw new Exception("Makiere zuerst einen Zielort!");
+            }
             model.addFastDestination(row);
             lbDes1.setText(model.getFastDestinations().get(0).getCity().getName());
             if (model.getFastDestinations().size() == 2) {
@@ -314,8 +316,8 @@ public class WeatherGUI extends javax.swing.JFrame {
     private void btDeleteFastCompareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDeleteFastCompareActionPerformed
 
         model.deleteFastCompare();
-        lbDes1.setText("...");
-        lbDes2.setText("...");
+        lbDes1.setText("....");
+        lbDes2.setText("....");
     }//GEN-LAST:event_btDeleteFastCompareActionPerformed
 
     public static void main(String args[]) {
@@ -331,7 +333,7 @@ public class WeatherGUI extends javax.swing.JFrame {
     private void fillDateComboBox() {
         for (int i = 0; i < 5; i++) {
             cbDates.addItem(LocalDate.now().plusDays(i).toString());
-            //  System.out.println(LocalDate.now().plusDays(i).toString());
+
         }
     }
 
@@ -346,7 +348,7 @@ public class WeatherGUI extends javax.swing.JFrame {
             public void mouseClicked(MouseEvent e) {
 
                 int sortBy = destinationsTable.columnAtPoint(e.getPoint());
-             
+
                 model.sort(sortBy);
             }
 

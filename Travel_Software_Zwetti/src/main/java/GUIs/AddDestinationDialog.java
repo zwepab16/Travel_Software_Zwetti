@@ -1,6 +1,7 @@
 package GUIs;
 
-import TableKlassen.SEARCHTYP;
+import otherClasses.SearchString;
+import otherClasses.SEARCHTYP;
 import javax.swing.JLabel;
 
 public class AddDestinationDialog extends javax.swing.JDialog {

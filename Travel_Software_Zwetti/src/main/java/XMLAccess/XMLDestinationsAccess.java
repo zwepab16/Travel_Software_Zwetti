@@ -27,6 +27,11 @@ public class XMLDestinationsAccess {
 
     }
 
+    /**
+     *
+     * @return instance
+     * @throws Exception
+     */
     public synchronized static XMLDestinationsAccess getInstance() throws Exception {
         if (instance == null) {
             instance = new XMLDestinationsAccess();
@@ -34,6 +39,10 @@ public class XMLDestinationsAccess {
         return instance;
     }
 
+    /**
+     *
+     * @return numDestinations
+     */
     public int numDestinations() {
         Element root = doc.getRootElement();
         List<Element> destination = root.getChildren("destination");
@@ -42,6 +51,10 @@ public class XMLDestinationsAccess {
 
     }
 
+    /**
+     *
+     * @return allDestinations
+     */
     public ArrayList<String> getAllDestinations() {
         ArrayList<String> redestinations = new ArrayList<>();
 
@@ -58,6 +71,10 @@ public class XMLDestinationsAccess {
         return redestinations;
     }
 
+    /**
+     *
+     * @param name Adds Destination
+     */
     public void addDestination(String name) {
 
         Element root = doc.getRootElement();
@@ -76,21 +93,29 @@ public class XMLDestinationsAccess {
         }
 
     }
-    
-    public void deleteDestination(String name){
-        
-       //nix working
+
+    /**
+     *
+     * @param name Removes Destination
+     */
+    public void deleteDestination(String name) {
+
+        //nix working
         Element root = doc.getRootElement();
         List<Element> destinations = root.getChildren("destination");
         for (Element destination : destinations) {
-            if(destination.getChild("name").getText().equals(name)){
-              destination.removeChild("name");
+            if (destination.getChild("name").getText().equals(name)) {
+                destination.removeChild("name");
             }
-            
+
         }
-        
+
     }
 
+    /**
+     *
+     * @param args Main to test the XML file
+     */
     public static void main(String[] args) {
         try {
 

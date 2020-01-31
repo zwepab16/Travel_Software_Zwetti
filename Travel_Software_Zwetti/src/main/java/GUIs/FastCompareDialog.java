@@ -16,7 +16,6 @@ public class FastCompareDialog extends javax.swing.JDialog {
         this.model = model;
         initComponents();
         fillDateComboBox();
-        fillDestinations();
 
     }
 
@@ -160,10 +159,19 @@ public class FastCompareDialog extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     *
+     * @param evt close the dialog
+     */
     private void btCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCloseActionPerformed
         this.dispose();
     }//GEN-LAST:event_btCloseActionPerformed
 
+    /**
+     *
+     * @param evt Starts if somebody uses the ComboBox fills the labels with the
+     * informations
+     */
     private void cbDesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbDesItemStateChanged
 
         OpenWeatherResponse o = model.getFastDestination(cbDes.getSelectedItem().toString(), 0);
@@ -178,6 +186,11 @@ public class FastCompareDialog extends javax.swing.JDialog {
 
     }//GEN-LAST:event_cbDesItemStateChanged
 
+    /**
+     *
+     * @param evt Starts if somebody uses the ComboBox fills the labels with the
+     * informations
+     */
     private void cbDes2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbDes2ItemStateChanged
         OpenWeatherResponse o = model.getFastDestination(cbDes2.getSelectedItem().toString(), 1);
         lbDes2.setText(o.getName());
@@ -191,57 +204,14 @@ public class FastCompareDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_cbDes2ItemStateChanged
 
     /**
-     * @param args the command line arguments
+     * fills the ComboBox with Dates
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FastCompareDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FastCompareDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FastCompareDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FastCompareDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                FastCompareDialog dialog = new FastCompareDialog(new javax.swing.JFrame(), true, new WeatherModel());
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
-
     private void fillDateComboBox() {
         for (int i = 0; i < 5; i++) {
             cbDes.addItem(LocalDate.now().plusDays(i).toString());
             cbDes2.addItem(LocalDate.now().plusDays(i).toString());
-            //  System.out.println(LocalDate.now().plusDays(i).toString());
+
         }
-    }
-
-    private void fillDestinations() {
-
     }
 
 

@@ -13,6 +13,16 @@ import javax.swing.table.TableCellRenderer;
 
 public class WeatherRenderer implements TableCellRenderer {
 
+    /**
+     * 
+     * @param table
+     * @param value
+     * @param isSelected
+     * @param hasFocus
+     * @param row
+     * @param column
+     * @return formatted Label
+     */
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         JLabel l = new JLabel();
@@ -37,10 +47,10 @@ public class WeatherRenderer implements TableCellRenderer {
 
                 break;
             case 3:
-                l.setText(String.format("%.2f °C", r.getMain().getTemp_min()- 273.15));
-                 if (r.getMain().getTemp_min() - 273.15 < 0) {
+                l.setText(String.format("%.2f °C", r.getMain().getTemp_min() - 273.15));
+                if (r.getMain().getTemp_min() - 273.15 < 0) {
                     l.setBackground(new Color(102, 178, 255));
-                } else if (r.getMain().getTemp_min()- 273.15 >= 28) {
+                } else if (r.getMain().getTemp_min() - 273.15 >= 28) {
                     l.setBackground(Color.red);
                 }
 
