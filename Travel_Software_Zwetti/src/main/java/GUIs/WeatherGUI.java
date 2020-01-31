@@ -2,7 +2,6 @@ package GUIs;
 
 import TableKlassen.WeatherRenderer;
 import TableKlassen.WeatherModel;
-import com.mycompany.travel_software_zwetti.weatherClasses.OpenWeatherResponse;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalDate;
@@ -241,6 +240,10 @@ public class WeatherGUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     *
+     * @param evt opens the AddDialog calls add Methote in Model
+     */
     private void AddDestination1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddDestination1ActionPerformed
         AddDestinationDialog d = new AddDestinationDialog(this, true);
         d.setVisible(true);
@@ -257,6 +260,10 @@ public class WeatherGUI extends javax.swing.JFrame {
 
     }//GEN-LAST:event_AddDestination1ActionPerformed
 
+    /**
+     *
+     * @param evt gets the selected row Calls delete for the selected row
+     */
     private void miDeleteDestinationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miDeleteDestinationActionPerformed
         try {
             //Delete
@@ -269,6 +276,10 @@ public class WeatherGUI extends javax.swing.JFrame {
 
     }//GEN-LAST:event_miDeleteDestinationActionPerformed
 
+    /**
+     *
+     * @param evt Loads the destinations for the selected date
+     */
     private void cbDatesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbDatesItemStateChanged
 
         try {
@@ -283,9 +294,13 @@ public class WeatherGUI extends javax.swing.JFrame {
         //löschen
     }//GEN-LAST:event_destinationsTableMouseClicked
 
+    /**
+     *
+     * @param evt Opens the FastCompareDialog
+     */
     private void btStartFastCompareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btStartFastCompareActionPerformed
 
-        if (!lbDes2.getText().equals("....")&&!lbDes1.getText().equals("....")) {
+        if (!lbDes2.getText().equals("....") && !lbDes1.getText().equals("....")) {
 
             FastCompareDialog d = new FastCompareDialog(this, true, model);
             d.setVisible(true);
@@ -295,6 +310,10 @@ public class WeatherGUI extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btStartFastCompareActionPerformed
 
+    /**
+     *
+     * @param evt Adds the seletcted Destination to FastCompare List
+     */
     private void btAddToFastCompareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAddToFastCompareActionPerformed
         try {
 
@@ -313,6 +332,10 @@ public class WeatherGUI extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btAddToFastCompareActionPerformed
 
+    /**
+     *
+     * @param evt Clears the FastCompare List
+     */
     private void btDeleteFastCompareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDeleteFastCompareActionPerformed
 
         model.deleteFastCompare();
@@ -320,16 +343,9 @@ public class WeatherGUI extends javax.swing.JFrame {
         lbDes2.setText("....");
     }//GEN-LAST:event_btDeleteFastCompareActionPerformed
 
-    public static void main(String args[]) {
-
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new WeatherGUI().setVisible(true);
-            }
-        });
-
-    }
-
+    /**
+     * Fills the ComboBox with the next 5 Dates
+     */
     private void fillDateComboBox() {
         for (int i = 0; i < 5; i++) {
             cbDates.addItem(LocalDate.now().plusDays(i).toString());
@@ -337,6 +353,9 @@ public class WeatherGUI extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * designs the table and set Renderer and Model
+     */
     private void editTable() {
         destinationsTable.setModel(model);
         destinationsTable.setDefaultRenderer(Object.class, new WeatherRenderer());

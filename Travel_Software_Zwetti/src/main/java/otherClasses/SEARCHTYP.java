@@ -12,7 +12,7 @@ public enum SEARCHTYP {
         return this.action;
     }
 
-    // enum constructor - cannot be public or protected 
+
     private SEARCHTYP(String action) {
         this.action = action;
     }

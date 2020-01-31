@@ -2,7 +2,6 @@ package GUIs;
 
 import otherClasses.SearchString;
 import otherClasses.SEARCHTYP;
-import javax.swing.JLabel;
 
 public class AddDestinationDialog extends javax.swing.JDialog {
 
@@ -157,6 +156,12 @@ public class AddDestinationDialog extends javax.swing.JDialog {
 
     }//GEN-LAST:event_btCloseActionPerformed
 
+    /**
+     * 
+     * @param evt 
+     * reads the Input
+     * Creates a searchstring
+     */
     private void btAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAddActionPerformed
         if (selection) {
             String seletedItem = this.cbLand.getSelectedItem().toString();
@@ -181,8 +186,14 @@ public class AddDestinationDialog extends javax.swing.JDialog {
         //  System.out.println("Name");
     }//GEN-LAST:event_rbNameStateChanged
 
+    
+    /**
+     * 
+     * @param evt 
+     * Make lbLand and cbLand unvisible
+     */
     private void rbNameItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rbNameItemStateChanged
-        System.out.println("NAME");
+       
         selection = false;
         lbLand.setVisible(false);
         cbLand.setVisible(false);
@@ -190,8 +201,13 @@ public class AddDestinationDialog extends javax.swing.JDialog {
 
     }//GEN-LAST:event_rbNameItemStateChanged
 
+    /**
+     * 
+     * @param evt 
+     * Make lbLand and cbLand visible
+     */
     private void rbPLZItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rbPLZItemStateChanged
-        System.out.println("PLZ");
+       
         selection = true;
         lbLand.setVisible(true);
         cbLand.setVisible(true);
@@ -199,6 +215,9 @@ public class AddDestinationDialog extends javax.swing.JDialog {
 
     }//GEN-LAST:event_rbPLZItemStateChanged
 
+    /**
+     * fills the ComboBox with the next five Days
+     */
     private void fillComboBox() {
 
         String[] ss = codes.split(";;");
@@ -212,21 +231,6 @@ public class AddDestinationDialog extends javax.swing.JDialog {
         }
     }
 
-    public static void main(String args[]) {
-
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                AddDestinationDialog dialog = new AddDestinationDialog(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAdd;

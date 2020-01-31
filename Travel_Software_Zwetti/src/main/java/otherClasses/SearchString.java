@@ -1,9 +1,11 @@
-package GUIs;
-
-import TableKlassen.SEARCHTYP;
+package otherClasses;
 
 
-
+/**
+ * 
+ * @author Zwetti Patrick
+ * To Search with plz or countryName
+ */
 public class SearchString {
 
     private String plz;
