@@ -116,18 +116,17 @@ public class XMLDestinationsAccess {
      *
      * @param args Main to test the XML file
      */
-    public static void main(String[] args) {
-        try {
-
-            XMLDestinationsAccess.getInstance().addDestination("TEST");
-            System.out.println(XMLDestinationsAccess.getInstance().numDestinations());
-            for (String s : XMLDestinationsAccess.getInstance().getAllDestinations()) {
-                System.out.println(s);
-            }
-
-        } catch (Exception ex) {
-            Logger.getLogger(XMLDestinationsAccess.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
+//    public static void main(String[] args) {
+//        try {
+//
+//            XMLDestinationsAccess.getInstance().addDestination("TEST");
+//            System.out.println(XMLDestinationsAccess.getInstance().numDestinations());
+//            for (String s : XMLDestinationsAccess.getInstance().getAllDestinations()) {
+//                System.out.println(s);
+//            }
+//
+//        } catch (Exception ex) {
+//            Logger.getLogger(XMLDestinationsAccess.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
 }

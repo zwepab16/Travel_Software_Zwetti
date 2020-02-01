@@ -31,19 +31,19 @@ public class RestClient {
      * @param args 
      * Main to test the RestClient Connection
      */
-    public static void main(String[] args) {
-        try {
-            RestClient r = new RestClient();
-            SearchString ss = new SearchString("8553", "AT", "", SEARCHTYP.ZIP);
-            r.searchDestination(ss);
-
-            ss = new SearchString("", "", "Graz", SEARCHTYP.NAME);
-            r.searchDestination(ss);
-        } catch (Exception ex) {
-            Logger.getLogger(RestClient.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }
+//    public static void main(String[] args) {
+//        try {
+//            RestClient r = new RestClient();
+//            SearchString ss = new SearchString("8553", "AT", "", SEARCHTYP.ZIP);
+//            r.searchDestination(ss);
+//
+//            ss = new SearchString("", "", "Graz", SEARCHTYP.NAME);
+//            r.searchDestination(ss);
+//        } catch (Exception ex) {
+//            Logger.getLogger(RestClient.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//
+//    }
 
     /**
      * 

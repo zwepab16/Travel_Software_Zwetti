@@ -1,10 +1,8 @@
 package otherClasses;
 
-
 /**
- * 
- * @author Zwetti Patrick
- * To Search with plz or countryName
+ *
+ * @author Zwetti Patrick To Search with plz or countryName
  */
 public class SearchString {
 
@@ -51,9 +49,13 @@ public class SearchString {
         this.countryName = countryName;
         this.searchType = searchType;
     }
-    public static void main(String[] args) {
-        SearchString s=new SearchString("", "", "", SEARCHTYP.NAME);
-        System.out.println(s.getSearchType().getAction());
-    }
+    /**
+     *
+     * @param args Only to test SearchString
+     */
+//    public static void main(String[] args) {
+//        SearchString s=new SearchString("", "", "", SEARCHTYP.NAME);
+//        System.out.println(s.getSearchType().getAction());
+//    }
 
 }

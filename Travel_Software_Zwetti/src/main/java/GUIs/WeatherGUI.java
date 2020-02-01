@@ -373,7 +373,7 @@ public class WeatherGUI extends javax.swing.JFrame {
 
         });
     }
-    
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -405,9 +405,7 @@ public class WeatherGUI extends javax.swing.JFrame {
             }
         });
     }
-    
-    
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddDestination1;

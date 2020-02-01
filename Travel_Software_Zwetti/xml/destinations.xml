@@ -12,5 +12,10 @@
   <destination>
     <name>Buchenberg</name>
   </destination>
-
+  <destination>
+    <name>Buchenberg</name>
+  </destination>
+  <destination>
+    <name>Graz</name>
+  </destination>
 </travelSoftware>
