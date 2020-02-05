@@ -102,9 +102,12 @@ public class WeatherModel extends AbstractTableModel {
             for (OpenWeatherResponse openWeatherResponse : r.getList()) {
 
                 LocalDateTime date = LocalDateTime.parse(openWeatherResponse.getDt_txt(), dtf);
-                if (date.getDayOfYear() == inputDate.getDayOfYear() && date.getHour() == 15) {
 
-                    destinations.add(openWeatherResponse);
+                if (date.getDayOfYear() == inputDate.getDayOfYear()) {
+                    if (date.getHour() == LocalDateTime.now().getHour() || date.getHour() == LocalDateTime.now().getHour() + 1 || date.getHour() == LocalDateTime.now().getHour() + 2) {
+
+                        destinations.add(openWeatherResponse);
+                    }
                 }
 
             }
@@ -173,9 +176,11 @@ public class WeatherModel extends AbstractTableModel {
         for (OpenWeatherResponse openWeatherResponse : fastDestinations.get(des).getList()) {
 
             LocalDateTime date = LocalDateTime.parse(openWeatherResponse.getDt_txt(), dtf);
-            if (date.getDayOfYear() == inputDate.getDayOfYear() && date.getHour() == 15) {
+            if (date.getDayOfYear() == inputDate.getDayOfYear()) {
+                if (date.getHour() == LocalDateTime.now().getHour() || date.getHour() == LocalDateTime.now().getHour() + 1 || date.getHour() == LocalDateTime.now().getHour() + 2) {
 
-                return openWeatherResponse;
+                    return openWeatherResponse;
+                }
             }
         }
 
